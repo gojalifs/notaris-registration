@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('permohonans', function (Blueprint $table) {
             $table->id();
             $table->string('no_registrasi')->unique();
-            $table->foreignId('layanan_id')->constrained();
+            $table->enum('layanan', ['blk', 'izn', 'akt']);
             $table->foreignId('user_id')->constrained();
             $table->enum('status', ['Menunggu', 'Diterima', 'Ditolak'])->default('Menunggu');
             $table->string('keterangan');
