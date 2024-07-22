@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\admin\HomeController;
+use App\Http\Controllers\admin\LayananController;
+use App\Http\Controllers\admin\PermohonanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('admin.home');
+
+Route::get('/permohonan/{layanan?}', [PermohonanController::class, 'index'])->name('admin.permohonan.index');
+
+Route::get('/layanan', [LayananController::class, 'index'])->name('user.layanan.index');
