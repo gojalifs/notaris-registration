@@ -4,6 +4,8 @@ use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\PermohonanController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\user\PermohonanUserController;
+use App\Http\Controllers\user\UserHomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,7 +36,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('user')->group(function () {
-        // Route::get('/home', )
+        Route::get('/home', [HomeController::class, 'index'])->name('user.home');
+        Route::get('/permohonan', [PermohonanUserController::class, 'index'])->name('user.permohonan.index');
+        Route::get('/status', [PermohonanUserController::class, 'status'])->name('user.permohonan.status');
     });
 });
 

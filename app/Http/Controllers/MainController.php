@@ -13,7 +13,7 @@ class MainController extends Controller
         if (Auth::user()->role == 'ADMIN') {
             return redirect()->route('admin.home');
         } else {
-            return view('user.home');
+            return redirect()->route('user.home');
         }
     }
 }
