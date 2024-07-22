@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Permohonan extends Model
 {
@@ -11,11 +12,16 @@ class Permohonan extends Model
 
     protected $fillable = [
         'no_registrasi',
-        'layanan_id',
+        'layanan',
         'user_id',
         'status',
         'keterangan',
         'created_at',
         'updated_at'
     ];
+
+    public function document(): HasMany
+    {
+        return $this->hasMany(Dokumen::class);
+    }
 }

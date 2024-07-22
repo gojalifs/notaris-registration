@@ -6,22 +6,22 @@
             class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
             <ul class="flex flex-wrap -mb-px">
                 <li class="me-2">
-                    <a href="{{ route('admin.permohonan.index', ['name' => 'balik-nama']) }}"
+                    <a href="{{ route('admin.permohonan.index', ['name' => 'blk']) }}"
                         class="inline-block p-4
-                        {{ $layanan == 'balik-nama' ? 'text-blue-600 border-b-2 border-blue-600 rounded-t-lg active' : 'hover:text-gray-600 hover:border-gray-300  border-b-2' }}">
+                        {{ $layanan == 'blk' ? 'text-blue-600 border-b-2 border-blue-600 rounded-t-lg active' : 'hover:text-gray-600 hover:border-gray-300  border-b-2' }}">
                         Balik Nama
                     </a>
                 </li>
                 <li class="me-2">
-                    <a href="{{ route('admin.permohonan.index', ['name' => 'akta']) }}"
+                    <a href="{{ route('admin.permohonan.index', ['name' => 'akt']) }}"
                         class="inline-block p-4 
-                        {{ $layanan == 'akta' ? 'text-blue-600 border-b-2 border-blue-600 rounded-t-lg active' : 'hover:text-gray-600 hover:border-gray-300  border-b-2' }}"
+                        {{ $layanan == 'akt' ? 'text-blue-600 border-b-2 border-blue-600 rounded-t-lg active' : 'hover:text-gray-600 hover:border-gray-300  border-b-2' }}"
                         aria-current="page">Akta Pendirian Perusahaan</a>
                 </li>
                 <li class="me-2">
-                    <a href="{{ route('admin.permohonan.index', ['name' => 'izin-cv']) }}"
+                    <a href="{{ route('admin.permohonan.index', ['name' => 'izn']) }}"
                         class="inline-block p-4
-                        {{ $layanan == 'izin-cv' ? 'text-blue-600 border-b-2 border-blue-600 rounded-t-lg active' : 'hover:text-gray-600 hover:border-gray-300  border-b-2' }}">
+                        {{ $layanan == 'izn' ? 'text-blue-600 border-b-2 border-blue-600 rounded-t-lg active' : 'hover:text-gray-600 hover:border-gray-300  border-b-2' }}">
                         Izin CV Perusahaan
                     </a>
                 </li>
@@ -55,7 +55,10 @@
                     </tr>
                 </tbody>
             </table>
-            <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
+
+            {{ $permohonans->links() }}
+
+            {{-- <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
                 aria-label="Table navigation">
                 <span
                     class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing
@@ -91,7 +94,7 @@
                             class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
                     </li>
                 </ul>
-            </nav>
+            </nav> --}}
         </div>
     </div>
 @endsection
