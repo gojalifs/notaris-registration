@@ -8,7 +8,12 @@ use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    public  function index(): View {
-        return view('admin.home');
+    public function index(): View
+    {
+        $user = 'Ngadimin';
+        
+        return view('admin.home', [
+            'user' => $user
+        ]);
     }
 }
