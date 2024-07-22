@@ -11,10 +11,26 @@ use Illuminate\View\View;
 class PermohonanController extends Controller
 {
     protected $user;
+    protected $routes;
 
     public function __construct()
     {
         $this->user = Auth::check() ? Auth::user()->full_name : 'Ngadimin';
+
+        $this->routes = (object) [
+            (object) [
+                'title' => 'Dashboard',
+                'routeName' => 'admin.home'
+            ],
+            (object) [
+                'title' => 'Permohonan',
+                'routeName' => 'admin.permohonan.index'
+            ],
+            (object) [
+                'title' => 'Cetak Laporan',
+                'routeName' => 'admin.cetak.index'
+            ],
+        ];
     }
 
     public function index(): View
@@ -24,6 +40,7 @@ class PermohonanController extends Controller
             ->orderByDesc('created_at')->paginate(10);
 
         return view('admin.permohonan', [
+            'routes' => $this->routes,
             'user' => $this->user,
             'layanan' => $layanan,
             'permohonans' => $permohonan,
@@ -33,6 +50,7 @@ class PermohonanController extends Controller
     public function cetak(): View
     {
         return view('admin.cetak', [
+            'routes' => $this->routes,
             'user' => $this->user
         ]);
     }

@@ -30,13 +30,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::middleware('admin')->group(function () {
-        Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.home');
+        Route::get('/dashboard', [MainController::class, 'home'])->name('admin.home');
         Route::get('/permohonan/{layanan?}', [PermohonanController::class, 'index'])->name('admin.permohonan.index');
         Route::get('/cetak', [PermohonanController::class, 'cetak'])->name('admin.cetak.index');
     });
 
     Route::middleware('user')->group(function () {
-        Route::get('/home', [HomeController::class, 'index'])->name('user.home');
+        Route::get('/home', [MainController::class, 'home'])->name('user.home');
         Route::get('/permohonan', [PermohonanUserController::class, 'index'])->name('user.permohonan.index');
         Route::get('/status', [PermohonanUserController::class, 'status'])->name('user.permohonan.status');
     });
