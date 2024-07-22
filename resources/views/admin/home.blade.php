@@ -1,6 +1,6 @@
-@extends('app')
+@extends('layout')
 
-@section('content')
+@section('main-content')
     <div>
         {{-- Content grid --}}
         <div class="grid grid-cols-3 mt-4 gap-8">

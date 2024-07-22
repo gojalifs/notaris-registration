@@ -3,7 +3,7 @@
         <img src="static_img/profile.svg" width="40" height="40">
         <div class="ml-2">{{ $user }}</div>
     </div>
-    <a href="" class="hover:text-red-400 hover:scale-95 content-center">
+    <a href="{{ route('logout') }}" class="hover:text-red-400 hover:scale-95 content-center">
         <div class="flex space-x-2 items-center">
             <div>Logout</div>
             <div>
