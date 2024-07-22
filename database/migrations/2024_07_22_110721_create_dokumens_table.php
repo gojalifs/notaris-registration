@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('dokumens', function (Blueprint $table) {
             $table->id();
             $table->enum('name', ['KTP', 'KK', 'NPWP&BPJS', 'SERTIPIKAT', 'PBB', 'IMB', 'NPWP_DIREKTUR']);
-            $table->foreignId('permohonan_id');
+            $table->foreignId('permohonan_id')->constrained();
             $table->string('path');
             $table->timestamps();
         });
