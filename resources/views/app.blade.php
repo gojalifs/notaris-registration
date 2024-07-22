@@ -16,7 +16,10 @@
 <body class="antialiased">
     @include('layout.sidebar')
     <div class="p-4 sm:ml-64">
-        @yield('content')
+        @include('layout.appbar')
+        <div class="py-4">            
+            @yield('content')
+        </div>
     </div>
 </body>
 

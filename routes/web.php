@@ -19,5 +19,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('admin.home');
 
 Route::get('/permohonan/{layanan?}', [PermohonanController::class, 'index'])->name('admin.permohonan.index');
+Route::get('/cetak', [PermohonanController::class, 'cetak'])->name('admin.cetak.index');
 
-Route::get('/layanan', [LayananController::class, 'index'])->name('user.layanan.index');
