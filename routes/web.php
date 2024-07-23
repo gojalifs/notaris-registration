@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('user')->group(function () {
         Route::get('/home', [MainController::class, 'home'])->name('user.home');
         Route::get('/permohonan-layanan', [PermohonanUserController::class, 'index'])->name('user.permohonan.index');
+        Route::post('/permohonan-layanan', [PermohonanUserController::class, 'store'])->name('user.permohonan.save');
         Route::get('/status', [PermohonanUserController::class, 'status'])->name('user.permohonan.status');
     });
 });

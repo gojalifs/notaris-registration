@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->enum('layanan', ['blk', 'izn', 'akt']);
             $table->foreignId('user_id')->constrained();
             $table->enum('status', ['Menunggu', 'Diterima', 'Ditolak'])->default('Menunggu');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }
