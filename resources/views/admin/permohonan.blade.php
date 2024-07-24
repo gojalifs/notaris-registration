@@ -39,62 +39,80 @@
                     <th class="border px-2 py-1">Aksi</th>
                 </thead>
                 <tbody>
-                    <tr class="py-2 my-2">
-                        <td class="border px-2">BN-2024-07-1</td>
-                        <td class="border px-2">Nisya</td>
-                        <td class="border px-2">
-                            <span class="bg-green-400 px-2 py-px w-min">Diterima</span>
-                            <span class="bg-yellow-200 px-2 py-px">Menunggu</span>
-                            <span class="bg-red-400 px-2 py-px">Ditolak</span>
-                        </td>
-                        <td class="border px-2">Data kurang lengkap</td>
-                        <td class="border px-2" class="flex py-2">
-                            <button class="bg-sky-400 px-2 py-px shadow- sm">Lihat Data</button>
-                            <button class="bg-red-400 px-2 py-px shadow-sm">Hapus</button>
-                        </td>
-                    </tr>
+                    @foreach ($permohonans as $p)
+                        <tr class="py-2 my-2">
+                            <td class="border px-2">{{ $p->no_registrasi }}</td>
+                            <td class="border px-2">{{ $p->full_name }}</td>
+                            <td class="border px-2">
+                                @switch($p->status)
+                                    @case('Diterima')
+                                        <span class="bg-green-400 px-2 py-px w-min">Diterima</span>
+                                    @break
+
+                                    @case('Ditolak')
+                                        <span class="bg-red-400 px-2 py-px">Ditolak</span>
+                                    @break
+
+                                    @default
+                                        <span class="bg-yellow-200 px-2 py-px">Menunggu</span>
+                                @endswitch
+                            </td>
+                            <td class="border px-2">{{ $p->keterangan }}</td>
+                            <td class="border px-2" class="flex py-2">
+                                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                                    class="bg-sky-400 px-2 py-px shadow- sm" type="button">
+                                    Lihat Data
+                                </button>
+                                {{-- <button class="bg-sky-400 px-2 py-px shadow- sm">Lihat Data</button> --}}
+                                <button class="bg-red-400 px-2 py-px shadow-sm">Hapus</button>
+                            </td>
+                        </tr>
+
+                        <!-- Main modal -->
+                        <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="bg-white rounded-lg px-8 py-4">
+                                <div class="text-2xl mb-4 md:min-w-[500px]">Berkas Pengajuan</div>
+                                <div class="space-y-4 border rounded-md px-4 py-2">
+                                    @foreach ($p->doc as $d)
+                                        <div class="flex justify-between">
+                                            <div>{{ $d->name }}</div>
+                                            <form id="{{ $d->id }}"
+                                                action="{{ route('admin.permohonan.download') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="path" id="path"
+                                                    value="{{ $d->path }}">
+                                                <button type="submit">
+                                                    Lihat
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="mt-4 text-center space-x-2 justify-center">
+                                    <form action="{{ route('admin.permohonan.setujui') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="id" id="{{ $p->id }}"
+                                            value="{{ $p->id }}">
+                                        <button class="bg-green-400 px-2 py-1 rounded-md">Setujui</button>
+                                    </form>
+                                    <form action="{{ route('admin.permohonan.tolak') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="id" id="{{ $p->id }}"
+                                            value="{{ $p->id }}">
+                                        <input type="text" name="catatan" id="catatan"
+                                            placeholder="Tambahkan catatan..." required>
+                                        <button href="" class="bg-red-400 px-2 py-1 rounded-md">Tolak</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </tbody>
             </table>
 
             {{ $permohonans->links() }}
 
-            {{-- <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
-                aria-label="Table navigation">
-                <span
-                    class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing
-                    <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span
-                        class="font-semibold text-gray-900 dark:text-white">1000</span></span>
-                <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                    <li>
-                        <a href="{{ URL::current() }}"
-                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                    </li>
-                    <li>
-                        <a href="#" aria-current="page"
-                            class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                    </li>
-                </ul>
-            </nav> --}}
         </div>
     </div>
 @endsection

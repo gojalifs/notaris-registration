@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Dokumen extends Model
 {
@@ -14,4 +15,9 @@ class Dokumen extends Model
         'permohonan_id',
         'path',
     ];
+
+    public function permohonans(): BelongsTo
+    {
+        return $this->belongsTo(Permohonan::class); 
+    }
 }

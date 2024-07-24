@@ -180,9 +180,30 @@ class PermohonanUserController extends Controller
 
     public function status(): View
     {
+        $layanan = request('name') ?: 'blk';
+
+        $permohonans = Permohonan::where('user_id', '=', Auth::user()->id)
+            ->paginate(10);
+        // $permohonans = Dokumen::join('permohonans', 'dokumens.permohonan_id', '=', 'permohonans.id')
+        //     ->join('users', 'permohonans.user_id', '=', 'users.id')
+        //     ->where('users.id', '=', Auth::user()->id)
+        //     ->get();
+
+        $docs = [];
+
+        foreach ($permohonans as $value) {
+            $doc = Dokumen::where('permohonan_id', '=', $value->id)
+                ->get();
+
+            array_push($docs, $doc);
+        }
+
         return view('user.status', [
             'routes' => parent::initUserData(),
-            'user' => parent::getUserName()
+            'user' => parent::getUserName(),
+            'layanan' => $layanan,
+            'permohonan' => $permohonans,
+            'dokumen' => $docs,
         ]);
     }
 }

@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::get('/dashboard', [MainController::class, 'home'])->name('admin.home');
         Route::get('/permohonan/{layanan?}', [PermohonanController::class, 'index'])->name('admin.permohonan.index');
+        Route::post('/permohonan/dl', [PermohonanController::class, 'download'])->name('admin.permohonan.download');
+        Route::post('/permohonan/setujui', [PermohonanController::class, 'setujui'])->name('admin.permohonan.setujui');
+        Route::post('/permohonan/tolak', [PermohonanController::class, 'tolak'])->name('admin.permohonan.tolak');
         Route::get('/cetak', [PermohonanController::class, 'cetak'])->name('admin.cetak.index');
     });
 
@@ -38,7 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/home', [MainController::class, 'home'])->name('user.home');
         Route::get('/permohonan-layanan', [PermohonanUserController::class, 'index'])->name('user.permohonan.index');
         Route::post('/permohonan-layanan', [PermohonanUserController::class, 'store'])->name('user.permohonan.save');
-        Route::get('/status', [PermohonanUserController::class, 'status'])->name('user.permohonan.status');
+        Route::get('/status/{layanan?}', [PermohonanUserController::class, 'status'])->name('user.permohonan.status');
     });
 });
 
