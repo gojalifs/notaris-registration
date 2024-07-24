@@ -59,22 +59,27 @@
                             </td>
                             <td class="border px-2">{{ $p->keterangan }}</td>
                             <td class="border px-2" class="flex py-2">
-                                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                                <button data-modal-target="crud-modal{{ $p->id }}"
+                                    data-modal-toggle="crud-modal{{ $p->id }}"
                                     class="bg-sky-400 px-2 py-px shadow- sm" type="button">
                                     Lihat Data
                                 </button>
                                 {{-- <button class="bg-sky-400 px-2 py-px shadow- sm">Lihat Data</button> --}}
-                                <button class="bg-red-400 px-2 py-px shadow-sm">Hapus</button>
+                                <button
+                                    class="{{ $p->status != 'Menunggu' ? 'hidden' : '' }}
+                                     bg-red-400 px-2 py-px shadow-sm">
+                                    Hapus
+                                </button>
                             </td>
                         </tr>
 
                         <!-- Main modal -->
-                        <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                        <div id="crud-modal{{ $p->id }}" tabindex="-1" aria-hidden="true"
                             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="bg-white rounded-lg px-8 py-4">
                                 <div class="text-2xl mb-4 md:min-w-[500px]">Berkas Pengajuan</div>
                                 <div class="space-y-4 border rounded-md px-4 py-2">
-                                    @foreach ($docs as $d)
+                                    @foreach ($p->doc as $d)
                                         <div class="flex justify-between">
                                             <div>{{ $d->name }}</div>
                                             <form id="{{ $d->id }}"
@@ -89,7 +94,10 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <div class="mt-4 text-center space-x-2 justify-center">
+
+                                <div
+                                    class="mt-4 text-center space-x-2 justify-center 
+                                {{ $p->status != 'Menunggu' ? 'hidden' : '' }}">
                                     <form action="{{ route('admin.permohonan.setujui') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="id" id="{{ $p->id }}"
