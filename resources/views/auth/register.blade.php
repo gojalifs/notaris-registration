@@ -19,10 +19,11 @@
             Registrasi Akun
         </div>
         <div class="max-w-[600px] mx-auto">
-            <form action="" method="post" class="space-y-4 mt-4">
+            <form action="{{route('doRegister')}}" method="post" class="space-y-4 mt-4">
+                @csrf
                 <div class="w-full flex items-center">
                     <span class="md:w-40">Nama Lengkap</span>
-                    <input type="text" name="full_name" id="full_name" required class="w-full py-1 px-2">
+                    <input type="text" name="full_name" id="full_name" required class="w-full py-1 px-2" autofocus>
                 </div>
                 <div class="w-full flex items-center">
                     <span class="md:w-40">Nama Panggilan</span>

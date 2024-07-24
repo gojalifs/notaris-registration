@@ -19,6 +19,9 @@
             Login
         </div>
         <div class="max-w-[600px] mx-auto">
+            @if (Session::get('success'))
+                <div class="ps-4 text-sm font-normal text-red-500">{{ Session::get('success') }}</div>
+            @endif
             @if (Session::get('error'))
                 <div class="ps-4 text-sm font-normal text-red-500">{{ Session::get('error') }}</div>
             @endif

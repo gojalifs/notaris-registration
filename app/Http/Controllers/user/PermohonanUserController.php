@@ -49,8 +49,11 @@ class PermohonanUserController extends Controller
         $date = $now->day;
 
         $count = Permohonan::where('layanan', '=', $jenis)
-            ->whereDate('created_at', '=', "$year-$month-$date")
+            ->whereMonth('created_at', '=', $month)
+            ->whereYear('created_at', '=', $year)
             ->count() + 1;
+
+        // dd(json_encode($count));
 
         $reg = "{$jenisUppr}-{$year}-{$month}-{$count}";
 
@@ -58,6 +61,7 @@ class PermohonanUserController extends Controller
             DB::beginTransaction();
             $permohonan = new Permohonan();
             $permohonan->no_registrasi = $reg;
+            $permohonan->user_id = Auth::user()->id;
             $permohonan->layanan = $jenis;
             $permohonan->full_name = $fullName;
             $permohonan->phone = $phone;
@@ -183,11 +187,9 @@ class PermohonanUserController extends Controller
         $layanan = request('name') ?: 'blk';
 
         $permohonans = Permohonan::where('user_id', '=', Auth::user()->id)
+            ->where('layanan', '=', $layanan)
+            ->orderByDesc('created_at')
             ->paginate(10);
-        // $permohonans = Dokumen::join('permohonans', 'dokumens.permohonan_id', '=', 'permohonans.id')
-        //     ->join('users', 'permohonans.user_id', '=', 'users.id')
-        //     ->where('users.id', '=', Auth::user()->id)
-        //     ->get();
 
         $docs = [];
 

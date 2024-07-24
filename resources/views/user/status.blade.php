@@ -96,26 +96,36 @@
                     <th class="border px-2 py-1">Aksi</th>
                 </thead>
                 <tbody>
-                    @foreach ($collection as $item)
-                        
+                    @foreach ($permohonan as $item)
+                        <tr class="py-2 my-2">
+                            <td class="border px-2">{{ $item->no_registrasi }}</td>
+                            <td class="border px-2">{{ $item->full_name }}</td>
+                            <td class="border px-2">
+                                @switch($item->status)
+                                    @case('Diterima')
+                                        <span class="bg-green-400 px-2 py-px w-min">Diterima</span>
+                                    @break
+
+                                    @case('Ditolak')
+                                        <span class="bg-red-400 px-2 py-px">Ditolak</span>
+                                    @break
+
+                                    @default
+                                        <span class="bg-yellow-200 px-2 py-px">Menunggu</span>
+                                @endswitch
+                            </td>
+                            <td class="border px-2">Data kurang lengkap</td>
+                            <td class="border px-2" class="flex py-2">
+                                <button class="bg-sky-400 px-2 py-px shadow- sm">Lihat Berkas</button>
+                            </td>
+                        </tr>
                     @endforeach
-                    <tr class="py-2 my-2">
-                        <td class="border px-2">BN-2024-07-1</td>
-                        <td class="border px-2">Nisya</td>
-                        <td class="border px-2">
-                            <span class="bg-green-400 px-2 py-px w-min">Diterima</span>
-                            <span class="bg-yellow-200 px-2 py-px">Menunggu</span>
-                            <span class="bg-red-400 px-2 py-px">Ditolak</span>
-                        </td>
-                        <td class="border px-2">Data kurang lengkap</td>
-                        <td class="border px-2" class="flex py-2">
-                            <button class="bg-sky-400 px-2 py-px shadow- sm">Lihat Berkas</button>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
 
-            {{ $permohonan->links() }}
+            <div class="mt-4">                
+                {{ $permohonan->links() }}
+            </div>
 
         </div>
     </div>
