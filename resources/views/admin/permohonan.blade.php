@@ -74,7 +74,7 @@
                             <div class="bg-white rounded-lg px-8 py-4">
                                 <div class="text-2xl mb-4 md:min-w-[500px]">Berkas Pengajuan</div>
                                 <div class="space-y-4 border rounded-md px-4 py-2">
-                                    @foreach ($p->doc as $d)
+                                    @foreach ($docs as $d)
                                         <div class="flex justify-between">
                                             <div>{{ $d->name }}</div>
                                             <form id="{{ $d->id }}"
@@ -110,9 +110,11 @@
                     @endforeach
                 </tbody>
             </table>
-
-            {{ $permohonans->links() }}
-
         </div>
+
+        <div class="mt-4">
+            {{ $permohonans->links() }}
+        </div>
+
     </div>
 @endsection

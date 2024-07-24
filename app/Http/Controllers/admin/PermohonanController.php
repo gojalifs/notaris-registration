@@ -16,8 +16,10 @@ class PermohonanController extends Controller
     {
         $layanan = request('name') ?: 'blk';
         $permohonan = Permohonan::where('layanan', '=', $layanan)
-            ->orderByDesc('created_at')->paginate(10);
+            ->orderByDesc('created_at')
+            ->paginate(10);
 
+        $permohonan->appends(['name' => $layanan]);
         $docs = [];
 
         foreach ($permohonan as $value) {
@@ -27,14 +29,15 @@ class PermohonanController extends Controller
             array_push($docs, $doc);
             $value->doc = $doc;
         }
-        $permohonan->docs = $docs;
 
+        $permohonan->docs = $docs;
+     
         return view('admin.permohonan', [
             'routes' => parent::initUserData(),
             'user' => parent::getUserName(),
             'layanan' => $layanan,
             'permohonans' => $permohonan,
-            'docs' => $docs,
+            'docs' => (object) [],
         ]);
     }
 
@@ -52,15 +55,17 @@ class PermohonanController extends Controller
         return Storage::download($request->path);
     }
 
-    public function setujui(Request $request){
+    public function setujui(Request $request)
+    {
         $permohonan = Permohonan::find($request->id);
         $permohonan->status = 'Diterima';
         $permohonan->save();
 
         return redirect()->route('admin.permohonan.index');
     }
-    
-    public function tolak(Request $request){
+
+    public function tolak(Request $request)
+    {
         $permohonan = Permohonan::find($request->id);
         $permohonan->status = 'Ditolak';
         $permohonan->keterangan = $request->catatan;
