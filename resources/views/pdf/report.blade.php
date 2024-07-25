@@ -1,51 +1,74 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>Registrasi Notaris</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <style>
+        .title {
+            text-align: center;
+            font-size: 18px;
+            line-height: 28px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+        }
+
+        tr {
+            text-align: center;
+        }
+
+        th,
+        td {
+            border: 5px solid rgb(107, 114, 128);
+            border-width: 1px;
+            --tw-border-opacity: 1;
+            padding: 0.25rem 0.5rem;
+        }
+    </style>
 
 </head>
 
-<body class="antialiased">
+<body>
     <div>
-        <div class="flex space-x-4 items-center" style="background-color: red;">
-            <div class="w-20 h-20" style="display: inline; background-color: blue;">
-                <img src="logo.png" alt="" height="144" width="144">
-            </div>
-            <div style="display: inline; background-color: yellow;">
-                <div class="text-2xl font-medium">Notaris & PPAT</div>
-                <div class="text-lg">Tiara Vita, S.H., M.Kn.</div>
-                <div>Jl. Raya Lemah Abang No. 01, Pasri Gombong, Cikarang Utara, Bekasi, Jawa Barat</div>
+        <div>
+            <img src="logo.png" alt="" style="float: left; margin-right: 16px; height: 100px; width: auto;">
+            <div style="height: 100px; align-items: center">
+                <div style="font-size: 24px; line-height: 32px; font-weight: 500; width: fit-content">
+                    Notaris & PPAT
+                </div>
+                <div style="font-size: 18px; line-height: 28px; width: fit-content">
+                    Tiara Vita, S.H., M.Kn.
+                </div>
+                <div>Jl. Raya Lemah Abang No. 01, Pasir Gombong, Cikarang Utara, Bekasi, Jawa Barat</div>
                 <div>HP : 081297462058</div>
             </div>
         </div>
-        <hr class="bg-black h-1 my-4">
-        <div class="text-center text-lg">{{ $title }}</div>
+        <hr style="background-color: black; height: 0.25rem; margin-top: 1rem; margin-bottom: 1rem;">
+        <div class="title">
+            {{ $title }}
+        </div>
 
-        <table class="w-full mt-4">
+        <table>
             <thead>
-                <th class="border border-gray-500 px-2 py-1">No.</th>
-                <th class="border border-gray-500 px-2 py-1">Nama Pemohon</th>
-                <th class="border border-gray-500 px-2 py-1">Telpon</th>
-                <th class="border border-gray-500 px-2 py-1">Alamat</th>
-                <th class="border border-gray-500 px-2 py-1">Tanggal</th>
+                <th>No.</th>
+                <th>Nama Pemohon</th>
+                <th>Telpon</th>
+                <th>Alamat</th>
+                <th>Tanggal</th>
             </thead>
             <tbody>
                 @foreach ($permohonan as $key => $p)
-                    <tr class="text-center">
-                        <td class="border border-gray-500 px-2 py-1">{{ $key + 1 }}</td>
-                        <td class="border border-gray-500 px-2 py-1">{{ $p->fn }} </td>
-                        <td class="border border-gray-500 px-2 py-1">{{ $p->phone }}</td>
-                        <td class="border border-gray-500 px-2 py-1">{{ $p->address }}</td>
-                        <td class="border border-gray-500 px-2 py-1">{{ $p->formatted_date }}</td>
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $p->fn }} </td>
+                        <td>{{ $p->phone }}</td>
+                        <td>{{ $p->address }}</td>
+                        <td>{{ $p->formatted_date }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('doLogin');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'store'])->name('doRegister');
 
 Route::middleware('auth')->group(function () {
 
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/permohonan/setujui', [PermohonanController::class, 'setujui'])->name('admin.permohonan.setujui');
         Route::post('/permohonan/tolak', [PermohonanController::class, 'tolak'])->name('admin.permohonan.tolak');
         Route::get('/cetak', [PermohonanController::class, 'cetak'])->name('admin.cetak.index');
+        Route::post('/cetak', [PermohonanController::class, 'report'])->name('admin.cetak.download');
+        Route::get('/report', [PermohonanController::class, 'cetakReport'])->name('admin.cetak.report');
     });
 
     Route::middleware('user')->group(function () {

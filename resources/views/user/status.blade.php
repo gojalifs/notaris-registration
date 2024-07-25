@@ -114,7 +114,7 @@
                                         <span class="bg-yellow-200 px-2 py-px">Menunggu</span>
                                 @endswitch
                             </td>
-                            <td class="border px-2">Data kurang lengkap</td>
+                            <td class="border px-2">{{$item->keterangan ?: '-'}}</td>
                             <td class="border px-2" class="flex py-2">
                                 <button class="bg-sky-400 px-2 py-px shadow- sm">Lihat Berkas</button>
                             </td>

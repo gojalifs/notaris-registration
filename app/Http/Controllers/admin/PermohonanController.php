@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Dokumen;
 use App\Models\Permohonan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -31,7 +33,7 @@ class PermohonanController extends Controller
         }
 
         $permohonan->docs = $docs;
-     
+
         return view('admin.permohonan', [
             'routes' => parent::initUserData(),
             'user' => parent::getUserName(),
@@ -72,5 +74,66 @@ class PermohonanController extends Controller
         $permohonan->save();
 
         return redirect()->route('admin.permohonan.index');
+    }
+
+    public function cetakReport()
+    {
+        ob_end_clean();
+
+        $type = request('type');
+        $month = request('month');
+        $bulan = Carbon::parse($month)->month;
+        $tahun = Carbon::parse($month)->year;
+
+        $permohonan = Permohonan
+            ::join('users', 'permohonans.user_id', '=', 'users.id')
+            ->where('permohonans.status', '=', 'Diterima')
+            ->where('permohonans.layanan', '=', 'izn')
+            ->whereMonth('permohonans.created_at', '=', $bulan)
+            ->whereYear('permohonans.created_at', '=', $tahun)
+            ->select(['permohonans.full_name as fn', 'permohonans.phone as phone', 'permohonans.address as address'])
+            ->selectRaw("DATE_FORMAT(permohonans.created_at, '%d/%m/%Y') AS formatted_date")
+            ->get();
+
+        switch ($type) {
+            case 'akt':
+                $title = 'Daftar Permohonan Akta Pendirian Perusahaan';
+                break;
+
+            case 'izn':
+                $title = 'Daftar Pembuatan Izin CV Perusahaan';
+                break;
+
+            case 'blk':
+                $title = 'Daftar Permintaan Balik Nama';
+                break;
+
+            default:
+                $title = 'Error';
+                break;
+        }
+
+        $now = Carbon::now();
+
+        // $pdf = \Spatie\LaravelPdf\Facades\Pdf::view('pdf.report', [
+        //     'title' => $title,
+        //     'permohonan' => $permohonan
+        // ])
+        //     ->format('a4')
+        //     ->name("Laporan_{$type}_{$month}_{$now->toDateTimeString()}.pdf");
+        // return $pdf;
+
+        // return view('pdf.report', [
+        //     'title' => $title,
+        //     'permohonan' => $permohonan
+        // ]);
+
+        $pdf = Pdf::loadView('pdf.report', [
+            'title' => $title,
+            'permohonan' => $permohonan
+        ])->setPaper('a4');
+
+        $now = Carbon::now();
+        return $pdf->download("Laporan_{$type}_{$month}_{$now->toDateTimeString()}.pdf");
     }
 }
