@@ -115,14 +115,6 @@ class PermohonanController extends Controller
 
         $now = Carbon::now();
 
-        // $pdf = \Spatie\LaravelPdf\Facades\Pdf::view('pdf.report', [
-        //     'title' => $title,
-        //     'permohonan' => $permohonan
-        // ])
-        //     ->format('a4')
-        //     ->name("Laporan_{$type}_{$month}_{$now->toDateTimeString()}.pdf");
-        // return $pdf;
-
         // return view('pdf.report', [
         //     'title' => $title,
         //     'permohonan' => $permohonan
@@ -134,6 +126,6 @@ class PermohonanController extends Controller
         ])->setPaper('a4');
 
         $now = Carbon::now();
-        return $pdf->download("Laporan_{$type}_{$month}_{$now->toDateTimeString()}.pdf");
+        return $pdf->download("Laporan_{$type}_{$month}_" . uniqid(rand(), true) . ".pdf");
     }
 }
