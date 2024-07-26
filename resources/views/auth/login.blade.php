@@ -20,11 +20,19 @@
         </div>
         <div class="max-w-[600px] mx-auto">
             @if (Session::get('success'))
-                <div class="ps-4 text-sm font-normal text-red-500">{{ Session::get('success') }}</div>
+                <div class="ps-4 text-sm font-normal text-green-500">{{ Session::get('success') }}</div>
             @endif
-            @if (Session::get('error'))
-                <div class="ps-4 text-sm font-normal text-red-500">{{ Session::get('error') }}</div>
+            @if (Session::get('status'))
+                <div class="ps-4 text-sm font-normal text-green-500">{{ Session::get('status') }}</div>
             @endif
+            @if ($errors->has('error'))
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li class="ps-4 text-sm font-normal text-red-500">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
             <form action="" method="post" class="space-y-4 mt-4">
                 @csrf
                 <div class="w-full flex items-center">
@@ -42,7 +50,7 @@
                     </div>
                 </div>
             </form>
-            <a href="" class="hover:text-blue-700">Lupa password?</a>
+            <a href="{{ route('forgot') }}" class="hover:text-blue-700">Lupa password?</a>
         </div>
     </div>
 @endsection

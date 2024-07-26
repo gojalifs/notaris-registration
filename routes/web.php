@@ -24,6 +24,16 @@ Route::post('/login', [AuthController::class, 'login'])->name('doLogin');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'store'])->name('doRegister');
 
+Route::get('/forgot', function () {
+    return view('auth.forgot-password');
+})->name('forgot');
+Route::post('/send_reset', [AuthController::class, 'reset'])->name('send_reset_link');
+
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('auth.reset', ['token' => $token]);
+})->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPwd'])->name('reset.now');
+
 Route::middleware('auth')->group(function () {
 
     Route::get('/', [MainController::class, 'index'])->name('home');
