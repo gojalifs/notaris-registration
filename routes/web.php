@@ -39,10 +39,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [MainController::class, 'index'])->name('home');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::post('/permohonan/dl', [PermohonanController::class, 'download'])->name('admin.permohonan.download');
+
     Route::middleware('admin')->group(function () {
         Route::get('/dashboard', [MainController::class, 'home'])->name('admin.home');
         Route::get('/permohonan/{layanan?}', [PermohonanController::class, 'index'])->name('admin.permohonan.index');
-        Route::post('/permohonan/dl', [PermohonanController::class, 'download'])->name('admin.permohonan.download');
         Route::post('/permohonan/setujui', [PermohonanController::class, 'setujui'])->name('admin.permohonan.setujui');
         Route::post('/permohonan/tolak', [PermohonanController::class, 'tolak'])->name('admin.permohonan.tolak');
         Route::get('/cetak', [PermohonanController::class, 'cetak'])->name('admin.cetak.index');

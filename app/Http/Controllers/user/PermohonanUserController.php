@@ -198,6 +198,7 @@ class PermohonanUserController extends Controller
                 ->get();
 
             array_push($docs, $doc);
+            $value->doc = $doc;
         }
 
         return view('user.status', [

@@ -114,16 +114,42 @@
                                         <span class="bg-yellow-200 px-2 py-px">Menunggu</span>
                                 @endswitch
                             </td>
-                            <td class="border px-2">{{$item->keterangan ?: '-'}}</td>
+                            <td class="border px-2">{{ $item->keterangan ?: '-' }}</td>
                             <td class="border px-2" class="flex py-2">
-                                <button class="bg-sky-400 px-2 py-px shadow- sm">Lihat Berkas</button>
+                                <button data-modal-target="crud-modal{{ $item->id }}"
+                                    data-modal-toggle="crud-modal{{ $item->id }}"
+                                    class="bg-sky-400 px-2 py-px shadow- sm">Lihat Berkas</button>
                             </td>
                         </tr>
+
+                        <!-- Main modal -->
+                        <div id="crud-modal{{ $item->id }}" tabindex="-1" aria-hidden="true"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="bg-white rounded-lg px-8 py-4">
+                                <div class="text-2xl mb-4 md:min-w-[500px]">Berkas Pengajuan</div>
+                                <div class="space-y-4 border rounded-md px-4 py-2">
+                                    @foreach ($item->doc as $d)
+                                        <div class="flex justify-between">
+                                            <div>{{ $d->name }}</div>
+                                            <form id="{{ $d->id }}"
+                                                action="{{ route('admin.permohonan.download') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="path" id="path"
+                                                    value="{{ $d->path }}">
+                                                <button type="submit">
+                                                    Lihat
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </tbody>
             </table>
 
-            <div class="mt-4">                
+            <div class="mt-4">
                 {{ $permohonan->links() }}
             </div>
 
