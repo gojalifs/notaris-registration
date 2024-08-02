@@ -14,6 +14,12 @@ use Illuminate\View\View;
 
 class PermohonanController extends Controller
 {
+    public function __construct()
+    {
+
+        // Set locale to Indonesian
+        Carbon::setLocale('id');
+    }
     public function index(): View
     {
         $layanan = request('name') ?: 'blk';
@@ -30,6 +36,7 @@ class PermohonanController extends Controller
 
             array_push($docs, $doc);
             $value->doc = $doc;
+            $value->tanggal = Carbon::parse($value->created_at)->translatedFormat('d F Y');
         }
 
         $permohonan->docs = $docs;

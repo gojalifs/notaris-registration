@@ -9,9 +9,10 @@
             <div class="p-2 flex justify-between items-center">
                 Silahkan pilih data yang ingin dicetak
                 <div>
-                    Periode :
+                    Periode (yyyy-mm) :
                     <span>
-                        <input type="month" name="month" id="month" class="rounded-sm border-gray-200" required>
+                        <input type="month" name="month" id="month" class="rounded-sm border-gray-200"
+                        placeholder="yyyy-mm" required>
                     </span>
                 </div>
             </div>

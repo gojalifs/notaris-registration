@@ -34,6 +34,7 @@
                 <thead>
                     <th class="border px-2 py-1">No. Registrasi</th>
                     <th class="border px-2 py-1">Nama Pemohon</th>
+                    <th class="border px-2 py-1">Tanggal Diajukan</th>
                     <th class="border px-2 py-1">Status</th>
                     <th class="border px-2 py-1">Keterangan</th>
                     <th class="border px-2 py-1">Aksi</th>
@@ -43,6 +44,7 @@
                         <tr class="py-2 my-2">
                             <td class="border px-2">{{ $p->no_registrasi }}</td>
                             <td class="border px-2">{{ $p->full_name }}</td>
+                            <td class="border px-2 py-4">{{ $p->tanggal }}</td>
                             <td class="border px-2">
                                 @switch($p->status)
                                     @case('Diterima')
