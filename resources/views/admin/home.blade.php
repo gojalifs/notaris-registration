@@ -27,7 +27,7 @@
             <div class="bg-cyan-300 min-h-36 rounded-md relative flex flex-col justify-between p-2 overflow-hidden">
                 <div class="font-medium text-5xl">{{ $izinCount }} </div>
                 <div>
-                    <div class="font-medium text-xl">Izin CV Perusahaan</div>
+                    <div class="font-medium text-xl">Izin Perusahaan</div>
                     <div class="text-gray-600">Jumlah Permohonan</div>
                 </div>
                 <div class="absolute -bottom-4 right-0 mb-2 mr-2">
