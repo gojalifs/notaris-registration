@@ -40,7 +40,7 @@
                 </a>
             </div>
             <div class="flex justify-between p-2 items-center">
-                Cetak Daftar Pembuatan Izin CV Perusahaan
+                Cetak Daftar Pembuatan Izin Perusahaan
                 <a id="izn">
                     <div class="flex bg-gray-300 p-2 hover:bg-gray-400 cursor-pointer">
                         <div>

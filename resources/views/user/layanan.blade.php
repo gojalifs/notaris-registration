@@ -25,7 +25,7 @@
                     <div class="w-1/3">Pilih layanan</div>
                     <select name="jenis" id="jenis" class="w-full" onchange="showSelect(this.value)" required>
                         <option value="blk">Balik Nama</option>
-                        <option value="izn">Pembuatan izin CV perusahaan</option>
+                        <option value="izn">Pembuatan izin perusahaan</option>
                         <option value="akt">Pembuatan Akta Pendirian Perusahaan</option>
                     </select>
                 </div>
@@ -105,10 +105,10 @@
                     </div>
                 </div>
 
-                {{-- Izin CV Perusahaan --}}
+                {{-- Izin Perusahaan --}}
                 <div id="cv">
                     <div class="text-center text-lg">
-                        Pembuatan Izin CV Perusahaan
+                        Pembuatan Izin Perusahaan
                     </div>
                     <div class="flex justify-between items-center mt-4">
                         <div>Scan KTP</div>

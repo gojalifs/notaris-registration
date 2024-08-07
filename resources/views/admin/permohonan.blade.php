@@ -22,7 +22,7 @@
                     <a href="{{ route('admin.permohonan.index', ['name' => 'izn']) }}"
                         class="inline-block p-4
                         {{ $layanan == 'izn' ? 'text-blue-600 border-b-2 border-blue-600 rounded-t-lg active' : 'hover:text-gray-600 hover:border-gray-300  border-b-2' }}">
-                        Izin CV Perusahaan
+                        Izin Perusahaan
                     </a>
                 </li>
             </ul>

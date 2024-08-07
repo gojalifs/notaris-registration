@@ -108,7 +108,7 @@ class PermohonanController extends Controller
                 break;
 
             case 'izn':
-                $title = 'Daftar Pembuatan Izin CV Perusahaan';
+                $title = 'Daftar Pembuatan Izin Perusahaan';
                 break;
 
             case 'blk':
